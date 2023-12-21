@@ -6,7 +6,7 @@ The main motive is to promote the event and let attendees showcase that they wil
 
 The badge consists of a basic event design where attendees can add their profile photo and name which can be downloaded as a PNG and used to post on social media.
 
-### UI:
+## UI of the WebApp:
 
 **WEB:** 
 

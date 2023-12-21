@@ -12,9 +12,13 @@ The badge consists of a basic event design where attendees can add their profile
 
 <img width="1710" alt="Screenshot 2023-12-21 at 8 48 27 AM" src="https://github.com/laksh29/Event-Badge-Generation/assets/81346526/75631576-b503-4566-8a55-d3f5ff1f0052">
 
+
+
 **TAB:** 
 
 <img width="629" alt="Screenshot 2023-12-21 at 8 49 23 AM" src="https://github.com/laksh29/Event-Badge-Generation/assets/81346526/67d2d626-d4dc-4575-8888-5e99b93c5e7f">
+
+
 
 **Mobile:** 
 

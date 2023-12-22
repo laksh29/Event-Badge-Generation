@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
+      scrollBehavior: const ScrollBehavior().copyWith(scrollbars: false),
       home: const HomePage(),
     );
   }

@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
     nameCont = TextEditingController();
     super.initState();
     uploadInput = html.FileUploadInputElement()..accept = "image/*";
-
     uploadInput!.onChange.listen((event) {
       final files = uploadInput!.files;
       if (files != null && files.isNotEmpty) {
@@ -133,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                               const SnackBar(content: Text("Badge Saved")));
                         }
                       },
-                      child: const Text("Download Batch"),
+                      child: const Text("Download Badge"),
                     ),
                   ],
                 ),

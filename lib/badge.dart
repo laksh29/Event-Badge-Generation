@@ -31,6 +31,7 @@ class BadgeWidget extends StatelessWidget {
                   color: Colors.amber,
                   image: DecorationImage(
                     image: NetworkImage(profileImage ?? ""),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

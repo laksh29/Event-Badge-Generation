@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'badge/bloc_page.dart';
 import 'firebase_options.dart';
-import 'home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       scrollBehavior: const ScrollBehavior().copyWith(scrollbars: false),
-      home: const HomePage(),
+      home: const BadgePage(),
     );
   }
 }

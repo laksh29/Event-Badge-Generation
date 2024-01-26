@@ -28,9 +28,11 @@ class BadgeWidget extends StatelessWidget {
                 height: 150,
                 width: 150,
                 decoration: BoxDecoration(
-                  color: Colors.amber,
                   image: DecorationImage(
-                    image: NetworkImage(profileImage ?? ""),
+                    image: NetworkImage(
+                      profileImage ??
+                          "https://placehold.co/400x400/043249/FFFFFF/png?text=profile%20image",
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),

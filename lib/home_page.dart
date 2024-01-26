@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
       RenderRepaintBoundary renderer = _globalKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary;
 
-      ui.Image image = await renderer.toImage();
+      ui.Image image = await renderer.toImage(pixelRatio: 3.0);
 
       ByteData? byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);

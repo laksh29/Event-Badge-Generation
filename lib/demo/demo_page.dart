@@ -3,20 +3,20 @@ import 'dart:html' as html;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:event_batch/badge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'constants.dart';
+import '../constants.dart';
+import 'demo_badge_widget.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class DemoPage extends StatefulWidget {
+  const DemoPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<DemoPage> createState() => _DemoPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _DemoPageState extends State<DemoPage> {
   static const String eventName = "Devsigner";
   late TextEditingController nameCont;
   final GlobalKey _globalKey = GlobalKey();
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   buildHeight(20.0),
-                  BadgeWidget(
+                  DemoBadgeWidget(
                     globalKey: _globalKey,
                     nameCont: nameCont,
                     profileImage: imageUrl,

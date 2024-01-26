@@ -95,60 +95,71 @@ class _HomePageState extends State<HomePage> {
           title: const Text("Event Badge Demo"),
           elevation: 5.0,
         ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                buildHeight(20.0),
-                BadgeWidget(
-                  globalKey: _globalKey,
-                  nameCont: nameCont,
-                  profileImage: imageUrl,
-                ),
-                buildHeight(50.0),
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: nameCont,
-                    keyboardType: TextInputType.name,
-                    decoration: const InputDecoration(
-                      hintText: "Enter your Name",
-                    ),
-                    onChanged: (value) => setState(() {}),
+        body: RefreshIndicator(
+          onRefresh: () => Future.delayed(const Duration(seconds: 1)),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Center(
+              child: Column(
+                children: [
+                  buildHeight(20.0),
+                  BadgeWidget(
+                    globalKey: _globalKey,
+                    nameCont: nameCont,
+                    profileImage: imageUrl,
                   ),
-                ),
-                buildHeight(50.0),
-                Wrap(
-                  spacing: 20.0,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        uploadInput!.click();
-
-                        log("User Image - Uploaded");
-                      },
-                      child: const Text("Upload Image"),
+                  buildHeight(50.0),
+                  SizedBox(
+                    width: 300,
+                    child: TextFormField(
+                      controller: nameCont,
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                        hintText: "Enter your Name",
+                      ),
+                      onChanged: (value) => setState(() {}),
                     ),
-                    // buildWidth(20.0),
-                    ElevatedButton(
-                      onPressed: () async {
-                        Uint8List image = await screenshot();
+                  ),
+                  buildHeight(50.0),
+                  Wrap(
+                    spacing: 20.0,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          uploadInput!.click();
 
-                        if (image != Uint8List(0)) {
-                          saveBadge(image);
-                        }
+                          log("User Image - Uploaded");
+                        },
+                        child: const Text("Upload Image"),
+                      ),
+                      // buildWidth(20.0),
+                      ElevatedButton(
+                        onPressed: () async {
+                          Uint8List image = await screenshot();
 
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Badge Saved")));
-                        }
-                      },
-                      child: const Text("Download Badge"),
+                          if (image != Uint8List(0)) {
+                            saveBadge(image);
+                          }
+
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Badge Saved")));
+                          }
+                        },
+                        child: const Text("Download Badge"),
+                      ),
+                    ],
+                  ),
+                  buildHeight(100.0),
+                  //!flutter build web --web-renderer canvaskit --release
+                  const Text(
+                    "Web Renderer - Canvas Kit",
+                    style: TextStyle(
+                      fontSize: 12,
                     ),
-                  ],
-                ),
-                buildHeight(100.0),
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

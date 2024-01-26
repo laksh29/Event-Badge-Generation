@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
     final url = html.Url.createObjectUrlFromBlob(blob);
 
     final anchor = html.AnchorElement(href: url)
-      ..setAttribute("download", "${nameCont.text} $eventName Badge.png")
+      ..setAttribute("download", "${nameCont.text}_${eventName}_ Badge.png")
       ..click();
 
     html.Url.revokeObjectUrl(url);
@@ -87,8 +87,8 @@ class _HomePageState extends State<HomePage> {
           title: const Text("Event Badge Demo"),
           elevation: 5.0,
         ),
-        body: Center(
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Center(
             child: Column(
               children: [
                 buildHeight(20.0),

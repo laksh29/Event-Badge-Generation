@@ -51,6 +51,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<Uint8List> screenshot() async {
     try {
+      log("Screenshot process - started");
+
       RenderRepaintBoundary renderer = _globalKey.currentContext!
           .findRenderObject() as RenderRepaintBoundary;
 
@@ -60,6 +62,9 @@ class _HomePageState extends State<HomePage> {
           await image.toByteData(format: ui.ImageByteFormat.png);
 
       Uint8List png = byteData!.buffer.asUint8List();
+
+      log("Screenshot - created");
+
       return png;
     } catch (e) {
       log("Error caught: $e");
@@ -68,6 +73,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future saveBadge(Uint8List imageData) async {
+    log("Image Saving - started");
     final blob = html.Blob([imageData]);
 
     final url = html.Url.createObjectUrlFromBlob(blob);
@@ -77,6 +83,8 @@ class _HomePageState extends State<HomePage> {
       ..click();
 
     html.Url.revokeObjectUrl(url);
+
+    log("Image - Saved");
   }
 
   @override
@@ -116,6 +124,8 @@ class _HomePageState extends State<HomePage> {
                     ElevatedButton(
                       onPressed: () {
                         uploadInput!.click();
+
+                        log("User Image - Uploaded");
                       },
                       child: const Text("Upload Image"),
                     ),
@@ -123,6 +133,7 @@ class _HomePageState extends State<HomePage> {
                     ElevatedButton(
                       onPressed: () async {
                         Uint8List image = await screenshot();
+
                         if (image != Uint8List(0)) {
                           saveBadge(image);
                         }

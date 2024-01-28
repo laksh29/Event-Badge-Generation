@@ -12,7 +12,7 @@ class FlutterPulseBadgeWidget extends StatelessWidget {
   final TextEditingController nameCont;
   final String? profileImage;
 
-  final String badgeAsset = "assets/flutter-pulse-badge.png";
+  final String badgeAsset = "assets/flutter-pulse-badge2.png";
   final Color nameColor = const Color(0xff043249);
 
   @override
@@ -49,12 +49,12 @@ class FlutterPulseBadgeWidget extends StatelessWidget {
               ),
             ),
             Positioned.fill(
-              top: 240,
+              top: 260,
               child: Text(
                 nameCont.text,
                 style: TextStyle(
                   color: nameColor,
-                  fontSize: 25,
+                  fontSize: 20,
                   fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,

@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:universal_html/html.dart';
+import 'package:universal_html/html.dart' as html;
 
 import '../constants.dart';
 import 'flutter_pulse_badge_widget.dart';
@@ -20,19 +20,23 @@ class _FlutterPulsePageState extends State<FlutterPulsePage> {
   static const String eventName = "flutter-pulse";
   late TextEditingController nameCont;
   final GlobalKey _globalKey = GlobalKey();
-  FileUploadInputElement? uploadInput;
+  html.FileUploadInputElement? uploadInput;
   String? imageUrl;
 
+  final encodedText = Uri.encodeComponent(
+      "I have registered for #FlutterPulse by #FlutterNagpur to #learnfromexperts and network to grab opportunities. ✨ \n\nHave you registered? \nIf not,  Register Now: lu.ma/Flutter-Pulse. 🚀 \n\nSee you on 24 Feb, 2024 🥳\n\n@FlutterNagpur @FlutterDev ");
+
+  String debugText = "";
   @override
   void initState() {
     nameCont = TextEditingController();
     super.initState();
-    uploadInput = FileUploadInputElement()..accept = "image/*";
+    uploadInput = html.FileUploadInputElement()..accept = "image/*";
     uploadInput!.onChange.listen((event) {
       final files = uploadInput!.files;
       if (files != null && files.isNotEmpty) {
         final file = files[0];
-        final reader = FileReader();
+        final reader = html.FileReader();
         reader.onLoadEnd.listen((event) {
           setState(() {
             imageUrl = reader.result as String?;
@@ -74,18 +78,26 @@ class _FlutterPulsePageState extends State<FlutterPulsePage> {
 
   Future saveBadge(Uint8List imageData) async {
     log("Image Saving - started");
-    final blob = Blob([imageData]);
+    final blob = html.Blob([imageData]);
 
-    final url = Url.createObjectUrlFromBlob(blob);
+    final url = html.Url.createObjectUrlFromBlob(blob);
 
-    final anchor = AnchorElement(href: url)
+    final anchor = html.AnchorElement(href: url)
       ..setAttribute("download", "${nameCont.text}_${eventName}_ Badge.png")
       ..click();
 
-    Url.revokeObjectUrl(url);
+    html.Url.revokeObjectUrl(url);
 
     log("Image - Saved");
   }
+
+  void _launchUrl(String urlLink) {
+    html.window.open(urlLink, '_blank');
+  }
+
+  SnackBar showSnackBar(String textContent) => SnackBar(
+        content: Text(textContent),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +108,10 @@ class _FlutterPulsePageState extends State<FlutterPulsePage> {
           elevation: 5.0,
         ),
         body: RefreshIndicator(
-          onRefresh: () => Future.delayed(const Duration(seconds: 1)),
+          onRefresh: () {
+            setState(() {});
+            return Future.delayed(const Duration(seconds: 1));
+          },
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Center(
@@ -134,26 +149,41 @@ class _FlutterPulsePageState extends State<FlutterPulsePage> {
                       ),
                       // buildWidth(20.0),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: nameCont.text == ""
+                              ? Theme.of(context).colorScheme.errorContainer
+                              : Theme.of(context).colorScheme.surface,
+                        ),
                         onPressed: () async {
                           Uint8List image = await screenshot();
 
-                          if (image != Uint8List(0)) {
+                          if (image != Uint8List(0) && nameCont.text != "") {
                             saveBadge(image);
                           }
 
                           if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Badge Saved")));
+                            if (nameCont.text == "") {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  showSnackBar("Please Enter your Name!"));
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(showSnackBar("Badge Saved!"));
+                            }
                           }
                         },
                         child: const Text("Download Badge"),
                       ),
+                      ElevatedButton(
+                        onPressed: () => _launchUrl(
+                            "https://twitter.com/intent/tweet?text=$encodedText&url= "),
+                        child: const Text("Tweet"),
+                      ),
                     ],
                   ),
                   buildHeight(100.0),
-                  //! flutter build web --web-renderer canvaskit --release
+                  Text(debugText),
                   const Text(
-                    "Web Renderer - Canvas Kit",
+                    "Web Renderer - Canvas Kit: modified - 30-1-24:4:19",
                     style: TextStyle(
                       fontSize: 12,
                     ),
